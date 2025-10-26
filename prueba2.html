@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chocolate Caliente - Edición Navideña</title>
+
+  <!-- Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --verde-oscuro: #1d351d;
+      --verde-medio: #325632;
+      --rojo-brillante: #8b181d;
+      --rojo-oscuro: #6f0f11;
+      --beige-crema: #e6be9a;
+      --blanco-calido: #f7f7f7;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes snow-fall {
+      100% {
+        background-position: 0px 1000px, 0px 800px, 0px 600px;
+      }
+    }
+
+    .snow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(3px 3px at 100px 50px, white, transparent),
+        radial-gradient(2px 2px at 200px 150px, white, transparent),
+        radial-gradient(3px 3px at 300px 250px, white, transparent),
+        radial-gradient(2px 2px at 400px 350px, white, transparent),
+        radial-gradient(3px 3px at 500px 100px, white, transparent),
+        radial-gradient(2px 2px at 50px 200px, white, transparent);
+      background-size: 600px 600px;
+      animation: snow-fall 25s linear infinite;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      background-color: var(--beige-crema);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-areas:
+        "header"
+        "main";
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 30px;
+      max-width: 1300px;
+      margin: 30px auto;
+      background-color: var(--blanco-calido);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      border-radius: 10px;  
+    }
+
+    .header {
+      grid-area: header;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: var(--rojo-oscuro);
+      color: var(--blanco-calido);
+      border-radius: 5px;
+      border-bottom: 4px solid var(--beige-crema);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .header-banner {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                  url('https://images.unsplash.com/photo-1608889175683-9d6c51b7b195?auto=format&fit=crop&w=1300&q=80') no-repeat center center;
+      background-size: cover;
+      text-align: center;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 4px solid var(--beige-crema);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .header-banner .logo h1 {
+      font-size: 2em;
+      color: var(--blanco-calido);
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+      margin: 0;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 2em;
+      color: var(--beige-crema);
+      text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    }
+
+    /* Logo clickeable */
+    .logo {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    /* ====== MENÚ RESPONSIVO ====== */
+    /* Navegación para escritorio */
+    .desktop-nav {
+      display: flex;
+    }
+
+    .desktop-nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0; padding: 0;
+    }
+
+    .desktop-nav li {
+      margin-left: 30px;
+    }
+
+    .desktop-nav a {
+      text-decoration: none;
+      color: var(--blanco-calido);
+      font-weight: bold;
+      font-size: 1.1em;
+      padding-bottom: 5px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .desktop-nav a:hover {
+      color: var(--beige-crema);
+      border-bottom: 2px solid var(--beige-crema);
+    }
+
+    /* Botón menú hamburguesa (oculto en escritorio) */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      z-index: 1001;
+      background: none;
+      border: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Menú móvil */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background-color: var(--verde-oscuro);
+      padding: 5rem 2rem 2rem;
+      transition: right 0.4s ease;
+      z-index: 1000;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-nav li {
+      margin-bottom: 20px;
+    }
+
+    .mobile-nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: color 0.3s;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--beige-crema);
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Animación para el botón hamburguesa cuando está activo */
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .main-content {
+      grid-area: main;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                  url(https://images.unsplash.com/photo-1542990253-a78145343714?q=80&w=2070) no-repeat center center;
+      background-size: cover;
+      color: var(--blanco-calido);
+      border-radius: 5px;
+      animation: fadeIn 1.2s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-section h2 {
+      font-size: 3em;
+      margin: 0 0 10px 0;
+      color: var(--beige-crema);
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    .hero-section h3 {
+      font-size: 1.5em;
+      margin: 0;
+    }
+
+    .products-section {
+      padding: 30px;
+      background-color: rgba(255,255,255,0.5);
+      text-align: center;
+      border-radius: 5px;
+      animation: fadeIn 1.4s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .product-card {
+      background-color: var(--blanco-calido);
+      text-align: center;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.03);
+    }
+
+    .product-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: var(--verde-medio);
+      margin: 0 auto 20px auto;
+      border: 5px solid var(--beige-crema);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      color: var(--blanco-calido);
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 1.8em;
+      color: var(--verde-oscuro);
+    }
+
+    .product-buttons button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50px;
+      font-weight: bold;
+      margin: 5px;
+    }
+
+    .btn-personalizar {
+      background-color: transparent;
+      color: var(--rojo-brillante);
+      border: 2px solid var(--rojo-brillante);
+    }
+
+    .btn-personalizar:hover {
+      background-color: var(--rojo-brillante);
+      color: white;
+    }
+
+    .btn-agregar {
+      background-color: var(--verde-medio);
+      color: white;
+    }
+
+    .btn-agregar:hover {
+      background-color: var(--verde-oscuro);
+    }
+
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--rojo-brillante);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 20px;
+      font-size: 1.5em;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .cart-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 300px;
+      background-color: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+      z-index: 1000;
+    }
+
+    .cart-panel.open {
+      display: block;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      padding: 20px;
+      font-size: 1.5em;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #checkout-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--rojo-oscuro);
+      color: var(--blanco-calido);
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 40px;
+      border-top: 4px solid var(--beige-crema);
+      font-family: 'Lato', sans-serif;
+      font-size: 1em;
+    }
+
+    .footer-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .social-icons a {
+      color: var(--blanco-calido);
+      margin: 0 10px;
+      font-size: 1.5em;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      color: var(--beige-crema);
+    }
+
+    /* ====== AJUSTES PARA MÓVILES ====== */
+    @media (max-width: 768px) {
+      /* Estructura general */
+      .container {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        margin: 10px;
+        gap: 20px;
+      }
+
+      /* Header más compacto */
+      .header-banner {
+        height: 100px;
+        padding: 10px;
+      }
+
+      .header-banner .logo img {
+        height: 70px;
+      }
+
+      /* Navegación responsiva */
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      /* Secciones principales */
+      .main-content {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero-section h2 {
+        font-size: 2em;
+      }
+
+      .hero-section h3 {
+        font-size: 1.2em;
+      }
+
+      .products-section {
+        padding: 20px 10px;
+      }
+
+      /* Rejilla de productos: uno debajo de otro */
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .product-card {
+        width: 100%;
+        padding: 15px;
+      }
+
+      /* Botones y texto */
+      .btn-personalizar, .btn-agregar {
+        width: 100%;
+        font-size: 1em;
+      }
+
+      /* Carrito flotante y WhatsApp */
+      .cart-button,
+      .whatsapp-float {
+        padding: 15px;
+        font-size: 1.2em;
+      }
+
+      /* Botón de menú hamburguesa */
+      .menu-toggle {
+        top: 15px;
+        right: 15px;
+      }
+
+      /* Footer */
+      .footer {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- He quitado la flecha completamente -->
+
+  <div class="snow"></div>
+
+  <!-- Menú móvil -->
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="close-menu" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul>
+      <li><a href="principal.html">Inicio</a></li>
+      <li><a href="#">Productos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Overlay para cerrar menú móvil -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Botón hamburguesa para móviles -->
+  <button class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="container">
+    <header class="header header-banner">
+      <!-- Logo clickeable que regresa a la página anterior -->
+      <div class="logo" onclick="goBack()">
+        <img src="chocomente.jpg" alt="Logo Chocomente" style="height: 100px;">
+      </div>
+      
+      <!-- Navegación para escritorio -->
+      <nav class="desktop-nav">
+        <ul>
+          <li><a href="principal.html">Inicio</a></li>
+          <li><a href="#">Productos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <section class="hero-section">
+        <h2>Chocolate Caliente Premium</h2>
+        <h3>Edición Navideña 2025 ❄️</h3>
+      </section>
+
+      <section class="products-section">
+        <h2>🎁 Elige tu paquete navideño:</h2>
+        <!-- Selector de ordenamiento -->
+        <div style="text-align: right; margin-bottom: 20px;">
+          <label for="sort">Ordenar por:</label>
+          <select id="sort" onchange="sortProducts()">
+            <option value="default">Por defecto</option>
+            <option value="name-asc">Nombre A-Z</option>
+            <option value="name-desc">Nombre Z-A</option>
+            <option value="price-asc">Precio menor</option>
+            <option value="price-desc">Precio mayor</option>
+          </select>
+        </div>
+
+        <div class="products-grid">
+          <!-- Producto 1 -->
+          <div class="product-card" data-name="Paquete Tradicional" data-price="25">
+            <div class="product-image">🎄</div>
+            <h4>Chocolate Tradicional</h4>
+            <p>Chocolate caliente tradicional, a base de cocoa natural</p>
+            <p class="price">$25 MXN</p>
+            <div class="product-buttons">
+              <a href="personalizar.html?producto=Paquete Tradicional" class="btn-personalizar">Detalles</a>
+              <button class="btn-agregar">Agregar</button>
+            </div>
+          </div>
+
+          <!-- Producto 2 -->
+          <div class="product-card" data-name="Bomba Clásica" data-price="25">
+            <div class="product-image">
+              <img src="b1.jpg" alt="Bomba Clásica" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            </div>
+            <h4>Bomba Clásica</h4>
+            <p>Deliciosa bomba de chocolate rellena de cocoa y malvaviscos.</p>
+            <p class="price">$25 MXN</p>
+            <div class="product-buttons">
+              <a href="personalizar.html?producto=Bomba Clásica" class="btn-personalizar">Detalles</a>
+              <button class="btn-agregar">Agregar</button>
+            </div>
+          </div>
+
+          <!-- Producto 3 -->
+          <div class="product-card" data-name="Bomba Navideña" data-price="30">
+            <div class="product-image">
+              <img src="b2.jpg" alt="Bomba Navideña" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            </div>
+            <h4>Bomba Navideña</h4>
+            <p>Decorada con chispas de colores y un toque festivo de menta.</p>
+            <p class="price">$30 MXN</p>
+            <div class="product-buttons">
+              <a href="personalizar.html?producto=Bomba Navideña" class="btn-personalizar">Detalles</a>
+              <button class="btn-agregar">Agregar</button>
+            </div>
+          </div>
+
+          <!-- Producto 4 -->
+          <div class="product-card" data-name="Bomba de Menta" data-price="30">
+            <div class="product-image">
+              <img src="b3.jpg" alt="Bomba de Menta" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            </div>
+            <h4>Bomba de Menta</h4>
+            <p>Chocolate con un toque refrescante de menta, ideal para la temporada.</p>
+            <p class="price">$30 MXN</p>
+            <div class="product-buttons">
+              <a href="personalizar.html?producto=Bomba de Menta" class="btn-personalizar">Detalles</a>
+              <button class="btn-agregar">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Carrito -->
+  <button class="cart-button" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+  </button>
+
+  <div class="cart-panel" id="cart-panel">
+    <h3>Tu Pedido:</h3>
+    <ul id="cart-items"></ul>
+    <p><strong>Total:</strong> $<span id="cart-total">0.00</span> MXN</p>
+    <button onclick="openCheckoutForm()">Finalizar Compra</button>
+  </div>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/5217222312388" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Formulario emergente -->
+  <form id="checkout-form" onsubmit="submitOrder(event)">
+    <h2>Finalizar Compra</h2>
+    <label>Nombre:<br>
+      <input type="text" id="nombre" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+    </label><br>
+    <label>Teléfono:<br>
+      <input type="tel" id="telefono" required style="width: 100%; padding: 8px; margin-bottom: 10px;" />
+    </label><br>
+    <label>Salón:<br>
+      <textarea id="direccion" required style="width: 100%; padding: 8px; margin-bottom: 10px;"></textarea>
+    </label><br>
+    <button type="submit">Enviar por WhatsApp</button>
+    <button type="button" onclick="closeCheckoutForm()">Cancelar</button>
+  </form>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2025 ChocoMente. Todos los derechos reservados.</p>
+      <div class="social-icons">
+        <a href="https://facebook.com/tu-pagina" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/tu-pagina" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/tu-pagina" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Función para regresar a la página anterior
+    function goBack() {
+      window.history.back();
+    }
+
+    let cart = [];
+
+    // Funcionalidad del menú móvil
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    function toggleMenu() {
+      menuToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    menuToggle.addEventListener('click', toggleMenu);
+    closeMenu.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+    
+    // Cerrar menú al hacer clic en un enlace
+    const mobileLinks = mobileNav.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', toggleMenu);
+    });
+
+    // Funcionalidad del carrito
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartCount = document.getElementById('cart-count');
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+
+      cartCount.textContent = cart.length;
+      cartItems.innerHTML = '';
+
+      let total = 0;
+      cart.forEach((item) => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price.toFixed(2)} MXN`;
+        cartItems.appendChild(li);
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+    }
+
+    function toggleCart() {
+      const panel = document.getElementById('cart-panel');
+      panel.classList.toggle('open');
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCartDisplay();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.btn-agregar');
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const card = e.target.closest('.product-card');
+          const name = card.querySelector('h4').textContent;
+          const priceText = card.querySelector('.price').textContent;
+          const price = parseFloat(priceText.replace('$', '').replace('MXN', '').trim());
+
+          addToCart(name, price);
+        });
+      });
+    });
+
+    function openCheckoutForm() {
+      document.getElementById('checkout-form').style.display = 'block';
+      // Cerrar carrito al abrir el formulario
+      document.getElementById('cart-panel').classList.remove('open');
+    }
+
+    function closeCheckoutForm() {
+      document.getElementById('checkout-form').style.display = 'none';
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const telefono = document.getElementById('telefono').value;
+      const direccion = document.getElementById('direccion').value;
+
+      if (cart.length === 0) {
+        alert('Tu carrito está vacío.');
+        return;
+      }
+
+      if (!nombre || !telefono || !direccion) {
+        alert('Por favor llena todos los campos del formulario.');
+        return;
+      }
+
+      let mensaje = `🎄 *Nuevo Pedido de ChocoFest* 🎄\n\n`;
+      mensaje += `👤 *Nombre:* ${nombre}\n📱 *Teléfono:* ${telefono}\n🏠 *Salón:* ${direccion}\n\n🛒 *Pedido:*\n`;
+
+      let total = 0;
+      cart.forEach(item => {
+        mensaje += `- ${item.name} - $${item.price.toFixed(2)} MXN\n`;
+        total += item.price;
+      });
+
+      mensaje += `\n💵 *Total:* $${total.toFixed(2)} MXN`;
+
+      const mensajeWhatsApp = encodeURIComponent(mensaje);
+
+      window.open(`https://wa.me/5217222312388?text=${mensajeWhatsApp}`, '_blank');
+
+      clearCart();
+      closeCheckoutForm();
+    }
+
+    function sortProducts() {
+      const select = document.getElementById('sort');
+      const value = select.value;
+      const grid = document.querySelector('.products-grid');
+      const cards = Array.from(grid.children);
+
+      cards.sort((a, b) => {
+        const nameA = a.getAttribute('data-name').toLowerCase();
+        const nameB = b.getAttribute('data-name').toLowerCase();
+        const priceA = parseFloat(a.getAttribute('data-price'));
+        const priceB = parseFloat(b.getAttribute('data-price'));
+
+        switch (value) {
+          case 'name-asc':
+            return nameA.localeCompare(nameB);
+          case 'name-desc':
+            return nameB.localeCompare(nameA);
+          case 'price-asc':
+            return priceA - priceB;
+          case 'price-desc':
+            return priceB - priceA;
+          default:
+            return 0; // no ordenar
+        }
+      });
+
+      // Limpiar y volver a añadir los productos ordenados
+      grid.innerHTML = '';
+      cards.forEach(card => grid.appendChild(card));
+    }
+  </script>
+</body>
+</html>
