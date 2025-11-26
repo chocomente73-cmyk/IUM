@@ -83,10 +83,8 @@
       border: 1px dashed var(--rojo-navidad);
     }
 
-    /* --- CAMBIOS PRINCIPALES EN LA GRILLA --- */
     .products-grid { 
       display: grid; 
-      /* Por defecto en escritorio mantiene columnas automáticas */
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
       gap: 35px; width: 100%; max-width: 1000px; 
     }
@@ -95,13 +93,7 @@
       background-color: var(--blanco-nieve); text-align: center; padding: 30px 20px; border-radius: 20px; 
       border: 2px solid var(--dorado-brillante); 
       box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: all 0.4s ease; position: relative; overflow: hidden;
-      
-      /* --- FLEXBOX PARA ALINEAR BOTONES --- */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      height: 100%; /* Ocupa toda la altura de la fila */
-      box-sizing: border-box;
+      display: flex; flex-direction: column; justify-content: flex-start; height: 100%; box-sizing: border-box;
     }
 
     .product-card::before {
@@ -121,13 +113,9 @@
     .product-card h4 { font-size: 1.5em; margin-bottom: 10px; margin-top: 15px; color: var(--verde-bosque); letter-spacing: 0.5px; font-weight: bold; font-family: 'Playfair Display', serif;}
     .product-card p { color: var(--texto-gris); font-size: 1em; font-weight: normal; margin-bottom: 10px; flex-grow: 1; }
     
-    /* --- IMAGENES CUADRADAS --- */
     .product-image {
-      width: 100%; 
-      max-width: 180px; 
-      aspect-ratio: 1 / 1; /* Mantiene proporción cuadrada */
-      border-radius: 20px; /* Bordes redondeados pero forma cuadrada */
-      background-color: var(--fondo-crema); margin: 0 auto 15px auto; 
+      width: 100%; max-width: 180px; aspect-ratio: 1 / 1; 
+      border-radius: 20px; background-color: var(--fondo-crema); margin: 0 auto 15px auto; 
       border: 3px solid var(--rojo-navidad);
       display: flex; justify-content: center; align-items: center; font-size: 2.5em; color: var(--blanco-calido); overflow: hidden; padding: 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -136,19 +124,14 @@
 
     .price { font-weight: 700; font-size: 1.8em; color: var(--rojo-navidad); margin: 10px 0 20px 0; font-family: 'Playfair Display', serif; text-shadow: none; }
     
-    /* Botón empujado al final */
-    .product-buttons { 
-      width: 100%; 
-      margin-top: auto; 
-    }
+    .product-buttons { width: 100%; margin-top: auto; }
     
     .btn-agregar { 
       background: linear-gradient(45deg, var(--rojo-navidad), #B3001E); color: white; border: none; box-shadow: 0 4px 15px rgba(230, 0, 38, 0.3); 
       padding: 12px 15px; border-radius: 50px; font-weight: 700; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; width: 100%; border-bottom: none;
     }
     .btn-agregar:hover { 
-      transform: scale(1.05); 
-      box-shadow: 0 6px 20px rgba(22, 91, 51, 0.4); 
+      transform: scale(1.05); box-shadow: 0 6px 20px rgba(22, 91, 51, 0.4); 
       background: linear-gradient(45deg, var(--dorado-brillante), #2E7D32); color: white; 
     }
 
@@ -163,19 +146,29 @@
     .cart-button:hover { transform: scale(1.1); }
     #cart-count { background: var(--dorado-brillante); color: white; border: none; top: -5px; right: -5px; font-size: 0.7em; }
 
+    /* --- PANEL DEL CARRITO (PREMENÚ) --- */
     .cart-panel {
       position: fixed; bottom: 120px; right: 35px; width: 340px; background-color: var(--blanco-nieve); 
       box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
       border: 3px solid var(--dorado-brillante);
       padding: 30px; border-radius: 15px; display: none; z-index: 1000; max-width: 90%;
+      box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
     }
-    .cart-panel h3 { color: var(--rojo-navidad); margin-top: 0; border-bottom: 2px solid var(--fondo-crema); padding-bottom: 15px; }
+    .cart-panel h3 { color: var(--rojo-navidad); margin-top: 0; border-bottom: 2px solid var(--fondo-crema); padding-bottom: 15px; margin-right: 20px; }
     .cart-panel.open { display: block; animation: fadeIn 0.3s; }
     .cart-panel button {
       background-color: var(--verde-bosque); color: white; width: 100%; padding: 14px; border: none; border-radius: 50px; font-weight: 700; letter-spacing: 1px; cursor: pointer; margin-top: 20px; transition: background 0.3s; box-shadow: none; font-size: 1em;
     }
     .cart-panel button:hover { background-color: var(--rojo-navidad); }
 
+    .close-cart-panel {
+        position: absolute; top: 15px; right: 15px;
+        font-size: 1.5em; color: var(--dorado-brillante); cursor: pointer;
+        transition: color 0.3s;
+    }
+    .close-cart-panel:hover { color: var(--rojo-navidad); }
+
+    /* --- FORMULARIO DE COMPRA --- */
     #checkout-form {
       display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
       background: var(--blanco-nieve); padding: 40px; border-radius: 25px; 
@@ -229,86 +222,87 @@
       transform: translateY(-3px) rotate(10deg); background: none; border: none;
     }
 
-    /* --- RESPONSIVE DESIGN MEJORADO PARA MÓVIL --- */
+    .instagram-section {
+        max-width: 1200px; margin: 0 auto; padding: 20px;
+    }
+    .instagram-section h2 { font-size: 2rem; margin-bottom: 10px; }
+    .instagram-section p { font-size: 1.2rem; margin-bottom: 30px; }
+    .instagram-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    /* --- RESPONSIVE DESIGN --- */
     @media (max-width: 768px) {
       .container { padding: 15px; margin: 10px; gap: 20px; box-shadow: none; border: none; background: transparent; outline: none; }
       
       .hero-section, .products-section { 
         background-color: var(--blanco-nieve); 
         border: 2px solid var(--rojo-navidad); 
-        padding: 30px 10px; /* Reducción de padding */
+        padding: 30px 10px; 
       }
       .main-content { gap: 30px; }
 
-      /* Ajuste estricto de la grilla para 2 columnas en móvil */
-      .products-grid {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; /* Gap más pequeño para que quepan */
-      }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-      /* Tarjeta de producto compacta */
-      .product-card { 
-        width: 100%; 
-        padding: 15px 10px; /* Padding interno reducido */
-        margin-bottom: 0; 
-        border: 1px solid var(--dorado-brillante); 
-      }
+      .product-card { width: 100%; padding: 15px 10px; margin-bottom: 0; border: 1px solid var(--dorado-brillante); }
       
-      /* Ajuste de tamaños de fuente para que no se rompa el diseño */
       .product-card h4 { font-size: 1.1em; margin-top: 10px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
-      .product-card p { font-size: 0.85em; line-height: 1.3; display: none; /* Opcional: Ocultar descripción larga en móvil si quieres más espacio */ }
-      /* Si prefieres mostrar la descripción, quita el display: none de arriba */
-      .product-card p:nth-of-type(2) { display: block; } /* Asegura que el precio siempre se vea */
+      .product-card p { display: none; } 
+      .product-card p:nth-of-type(2) { display: block; }
 
       .price { font-size: 1.2em; margin: 5px 0 15px 0; }
       .btn-agregar { padding: 10px; font-size: 0.8em; }
 
-      .product-image {
-        max-width: 100%; /* Ocupa el ancho disponible */
-        border-width: 2px;
-      }
+      .product-image { max-width: 100%; border-width: 2px; }
 
       .cart-button { padding: 15px; font-size: 1.2em; bottom: 20px; right: 20px; }
       .logo-hero { width: 120px; height: 120px; }
       .hero-section h2 { font-size: 2.5em; }
       .hero-section h3 { font-size: 1.1em; }
       
-      #checkout-form { width: 95%; padding: 25px; }
+      .instagram-grid { grid-template-columns: 1fr; justify-items: center; }
+
+      /* --- CORRECCIÓN ESPECÍFICA PARA EL MENÚ DEL CARRITO (PREMENÚ) --- */
+      .cart-panel {
+        width: 90% !important; /* Ancho fluido */
+        right: 0 !important;
+        left: 0 !important;
+        margin: 0 auto; /* Centrado automático */
+        bottom: 110px; /* Separado del botón */
+        padding: 20px; /* Menos relleno interno */
+      }
+
+      /* --- AJUSTE RESPONSIVO PARA EL FORMULARIO DE COMPRA --- */
+      #checkout-form {
+        width: 85%; 
+        max-width: none;
+        padding: 25px 20px;
+        border-width: 2px;
+        max-height: 80vh; 
+        border-radius: 15px;
+      }
+      
+      #checkout-form h2 {
+        font-size: 1.5em; 
+        margin-bottom: 20px;
+      }
+
+      .input-group { margin-bottom: 15px; } 
+      .input-group label { font-size: 0.9em; margin-bottom: 5px; }
+      
+      #checkout-form input, #checkout-form textarea, #checkout-form select {
+        padding: 10px 12px; 
+        font-size: 0.9em;
+      }
+
+      #checkout-form button[type="submit"] {
+        padding: 12px; font-size: 1em; margin-top: 10px;
+      }
+      #checkout-form button.btn-cancelar {
+        padding: 10px; font-size: 0.9em;
+      }
+      .close-modal {
+        top: 15px; right: 15px; font-size: 1.5em; 
+      }
     }
-
-  .instagram-section {
-  max-width: 1200px;  /* MISMO ANCHO QUE PRODUCTOS */
-  margin: 0 auto;     /* CENTRADO PERFECTO */
-  padding: 20px;      /* MISMO ESPACIO */
-}
-
-
-.instagram-section h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.instagram-section p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-}
-
-.instagram-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-/* Vista móvil */
-@media (max-width: 768px) {
-  .instagram-grid {
-    grid-template-columns: 1fr;   /* 1 por fila */
-    justify-items: center;        /* CENTRA LAS PUBLICACIONES */
-  }
-}
-
-
-
   </style>
 </head>
 <body>
@@ -377,6 +371,7 @@
   </button>
   
   <div class="cart-panel" id="cart-panel">
+    <span class="close-cart-panel" onclick="toggleCart()">&times;</span>
     <h3>Tu Pedido Navideño:</h3>
     <ul id="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="cart-total">0.00</span> MXN</p>
@@ -409,8 +404,7 @@
     <button type="button" class="btn-cancelar" onclick="closeCheckoutForm()">Seguir Comprando</button>
   </form>
 
-  <!-- SECCIÓN DE INSTAGRAM -->
-<section class="instagram-section">
+  <section class="instagram-section">
   <center>
   <h2>📱 Síguenos en Instagram</h2>
   <p>Mira nuestras últimas publicaciones en <strong>@ChocoMente</strong></p>
