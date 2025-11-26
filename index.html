@@ -2,779 +2,509 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChocoMente | Navidad</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chocolate Caliente - Edición Navideña de Lujo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --verde: #1e3932;
-      --rojo: #a41e1e;
-      --beige: #f4f1eb;
-      --blanco: #ffffff;
+      --fondo-crema: #FFF8E1; 
+      --blanco-nieve: #FFFFFF;
+      --rojo-navidad: #E60026; 
+      --verde-bosque: #5C0A10;
+      --dorado-brillante: #165B33; 
+      --texto-gris: #4E342E; 
+      --sombra-suave: 0 10px 30px rgba(230, 0, 38, 0.15); 
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes snow-fall { 100% { background-position: 0px 1000px, 0px 800px, 0px 600px; } }
+    @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(22, 91, 51, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(22, 91, 51, 0); } 100% { box-shadow: 0 0 0 0 rgba(22, 91, 51, 0); } }
+
+    .snow {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; pointer-events: none;
+      background-image: radial-gradient(3px 3px at 100px 50px, var(--rojo-navidad), transparent), radial-gradient(2px 2px at 200px 150px, var(--dorado-brillante), transparent), radial-gradient(3px 3px at 300px 250px, white, transparent), radial-gradient(2px 2px at 400px 350px, white, transparent);
+      background-size: 600px 600px; animation: snow-fall 25s linear infinite; opacity: 0.5;
     }
 
     body {
-      background-color: var(--blanco);
-      color: var(--verde);
-      overflow-x: hidden;
+      font-family: 'Lato', sans-serif; margin: 0; background-color: var(--fondo-crema); color: var(--texto-gris); line-height: 1.6; overflow-x: hidden; font-size: 18px; min-height: 100vh;
     }
 
-    header {
-      background-color: var(--rojo);
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif; letter-spacing: 1.5px; color: var(--verde-bosque);
+    }
+
+    .container {
+      position: relative; z-index: 1; display: flex; flex-direction: column; 
+      gap: 40px; padding: 40px; max-width: 1200px; margin: 40px auto;
+      background-color: var(--blanco-nieve);
+      box-shadow: var(--sombra-suave);
+      border: 4px solid var(--rojo-navidad); 
+      outline: 4px solid var(--dorado-brillante); 
+      outline-offset: -10px;
+      border-radius: 25px;
+    }
+
+    .main-content { display: flex; flex-direction: column; gap: 50px; width: 100%; }
+
+    .hero-section {
+      text-align: center; padding: 70px 20px; 
+      background: linear-gradient(rgba(255,248,225,0.9), rgba(255,248,225,0.9)), url(https://images.unsplash.com/photo-1542990253-a78145343714?q=80&w=2070) no-repeat center center;
+      background-size: cover; color: var(--verde-bosque); 
+      border-radius: 15px; animation: fadeIn 1.2s ease-out; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 2px solid var(--dorado-brillante);
+      box-shadow: 0 10px 25px rgba(22, 91, 51, 0.3);
+      margin-top: 0;
+    }
+
+    .logo-hero {
+        width: 170px; height: 170px; border-radius: 50%;
+        border: 5px solid var(--rojo-navidad);
+        box-shadow: 0 0 0 5px var(--dorado-brillante), 0 10px 20px rgba(0,0,0,0.15);
+        object-fit: cover; margin-bottom: 30px; background-color: white; padding: 0;
+    }
+
+    .hero-section h2 {
+      font-size: 4em; margin: 0 0 15px 0; color: var(--rojo-navidad); font-weight: 700; line-height: 1.1; 
+      text-shadow: 2px 2px 0px var(--dorado-brillante);
+    }
+    .hero-section h3 { 
+      font-size: 1.8em; margin: 0; letter-spacing: 4px; color: var(--verde-bosque); text-transform: uppercase; font-weight: 600; 
+      border-bottom: 2px solid var(--dorado-brillante); padding-bottom: 5px;
+    }
+
+    .products-section {
+      padding: 50px 30px; 
+      background-color: #FFF0F0; 
+      text-align: center; border-radius: 15px; animation: fadeIn 1.4s ease-out; display: flex; flex-direction: column; align-items: center;
+      border: 1px dashed var(--rojo-navidad);
+    }
+
+    /* --- CAMBIOS PRINCIPALES EN LA GRILLA --- */
+    .products-grid { 
+      display: grid; 
+      /* Por defecto en escritorio mantiene columnas automáticas */
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 35px; width: 100%; max-width: 1000px; 
+    }
+
+    .product-card {
+      background-color: var(--blanco-nieve); text-align: center; padding: 30px 20px; border-radius: 20px; 
+      border: 2px solid var(--dorado-brillante); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: all 0.4s ease; position: relative; overflow: hidden;
+      
+      /* --- FLEXBOX PARA ALINEAR BOTONES --- */
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      position: relative;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      color: white;
-      font-weight: bold;
-    }
-
-    /* Navegación para escritorio */
-    .desktop-nav {
-      display: flex;
-    }
-
-    .desktop-nav a {
-      color: white;
-      margin-left: 2rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .desktop-nav a:hover {
-      color: var(--beige);
-    }
-
-    /* Botón menú hamburguesa (oculto en escritorio) */
-    .menu-toggle {
-      display: none;
       flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 21px;
-      cursor: pointer;
-      z-index: 1001;
+      justify-content: flex-start;
+      height: 100%; /* Ocupa toda la altura de la fila */
+      box-sizing: border-box;
     }
 
-    .menu-toggle span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background-color: white;
-      border-radius: 3px;
-      transition: all 0.3s ease;
+    .product-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; 
+      background: var(--rojo-navidad); 
+      transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+    }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .product-card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: 0 20px 40px rgba(230, 0, 38, 0.2);
+      border-color: var(--rojo-navidad);
+      background-color: var(--blanco-nieve);
     }
 
-    /* Menú móvil */
-    .mobile-nav {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100vh;
-      background-color: var(--rojo);
-      padding: 5rem 2rem 2rem;
-      transition: right 0.4s ease;
-      z-index: 1000;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    .product-card h4 { font-size: 1.5em; margin-bottom: 10px; margin-top: 15px; color: var(--verde-bosque); letter-spacing: 0.5px; font-weight: bold; font-family: 'Playfair Display', serif;}
+    .product-card p { color: var(--texto-gris); font-size: 1em; font-weight: normal; margin-bottom: 10px; flex-grow: 1; }
+    
+    /* --- IMAGENES CUADRADAS --- */
+    .product-image {
+      width: 100%; 
+      max-width: 180px; 
+      aspect-ratio: 1 / 1; /* Mantiene proporción cuadrada */
+      border-radius: 20px; /* Bordes redondeados pero forma cuadrada */
+      background-color: var(--fondo-crema); margin: 0 auto 15px auto; 
+      border: 3px solid var(--rojo-navidad);
+      display: flex; justify-content: center; align-items: center; font-size: 2.5em; color: var(--blanco-calido); overflow: hidden; padding: 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .price { font-weight: 700; font-size: 1.8em; color: var(--rojo-navidad); margin: 10px 0 20px 0; font-family: 'Playfair Display', serif; text-shadow: none; }
+    
+    /* Botón empujado al final */
+    .product-buttons { 
+      width: 100%; 
+      margin-top: auto; 
+    }
+    
+    .btn-agregar { 
+      background: linear-gradient(45deg, var(--rojo-navidad), #B3001E); color: white; border: none; box-shadow: 0 4px 15px rgba(230, 0, 38, 0.3); 
+      padding: 12px 15px; border-radius: 50px; font-weight: 700; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; width: 100%; border-bottom: none;
+    }
+    .btn-agregar:hover { 
+      transform: scale(1.05); 
+      box-shadow: 0 6px 20px rgba(22, 91, 51, 0.4); 
+      background: linear-gradient(45deg, var(--dorado-brillante), #2E7D32); color: white; 
     }
 
-    .mobile-nav.active {
-      right: 0;
+    .cart-button {
+      position: fixed; bottom: 35px; right: 35px; width: auto; height: auto;
+      background: radial-gradient(circle, var(--rojo-navidad) 0%, #B3001E 100%); color: white; 
+      border: 3px solid var(--dorado-brillante); 
+      border-radius: 50%; padding: 18px; font-size: 1.5em; cursor: pointer; z-index: 1000;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: pulse-gold 2s infinite;
     }
+    .cart-button:hover { transform: scale(1.1); }
+    #cart-count { background: var(--dorado-brillante); color: white; border: none; top: -5px; right: -5px; font-size: 0.7em; }
 
-    .mobile-nav a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transition: color 0.3s;
+    .cart-panel {
+      position: fixed; bottom: 120px; right: 35px; width: 340px; background-color: var(--blanco-nieve); 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
+      border: 3px solid var(--dorado-brillante);
+      padding: 30px; border-radius: 15px; display: none; z-index: 1000; max-width: 90%;
     }
-
-    .mobile-nav a:hover {
-      color: var(--beige);
+    .cart-panel h3 { color: var(--rojo-navidad); margin-top: 0; border-bottom: 2px solid var(--fondo-crema); padding-bottom: 15px; }
+    .cart-panel.open { display: block; animation: fadeIn 0.3s; }
+    .cart-panel button {
+      background-color: var(--verde-bosque); color: white; width: 100%; padding: 14px; border: none; border-radius: 50px; font-weight: 700; letter-spacing: 1px; cursor: pointer; margin-top: 20px; transition: background 0.3s; box-shadow: none; font-size: 1em;
     }
+    .cart-panel button:hover { background-color: var(--rojo-navidad); }
 
-    .close-menu {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      color: white;
-      font-size: 1.5rem;
-      background: none;
-      border: none;
-      cursor: pointer;
+    #checkout-form {
+      display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+      background: var(--blanco-nieve); padding: 40px; border-radius: 25px; 
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5); 
+      border: 4px solid var(--dorado-brillante); 
+      z-index: 1001; width: 90%; max-width: 450px; animation: fadeIn 0.4s ease-out; max-height: 90vh; overflow-y: auto;
     }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 999;
+    #checkout-form h2 { 
+      color: var(--rojo-navidad); text-align: center; margin-bottom: 30px;
+      font-size: 2.2em; font-weight: bold; text-shadow: 1px 1px 0px var(--dorado-brillante); border-bottom: none; padding-bottom: 0;
     }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Animación para el botón hamburguesa cuando está activo */
-    .menu-toggle.active span:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
-    }
-
-    /* Contenido principal */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 0;
-      width: 100%;
-    }
-
-    .block {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      min-height: 300px;
-      text-align: center;
-    }
-
-    .green-block {
-      background-color: var(--verde);
-      color: white;
-      flex-direction: column;
-    }
-
-    .beige-block {
-      background-color: var(--beige);
-      flex-direction: column;
-    }
-
-    .green-block h2,
-    .beige-block h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .green-block p,
-    .beige-block p {
-      font-size: 1rem;
-      max-width: 500px;
-    }
-
-    .img-block img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    footer {
-      background-color: var(--verde);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    /* Santa flotante */
-    .santa-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      text-align: center;
-      animation: floatSanta 4s ease-in-out infinite;
-    }
-
-    .santa-container img {
-      width: 80px;
-      height: auto;
-    }
-
-    .santa-message {
-      background-color: #a41e1e;
-      color: white;
-      font-weight: bold;
-      padding: 0.3rem 0.6rem;
+    .input-group { margin-bottom: 25px; }
+    .input-group label { display: block; margin-bottom: 10px; color: var(--verde-bosque); font-weight: 700; font-size: 1em; letter-spacing: 0.5px; text-transform: none;}
+    .input-group i { margin-right: 10px; color: var(--rojo-navidad); }
+    
+    #checkout-form input, #checkout-form textarea, #checkout-form select {
+      width: 100%; padding: 14px 18px; 
+      border: 2px solid #A5D6A7; 
       border-radius: 12px;
-      margin-top: 0.3rem;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      background: #FFFBF0; font-family: 'Lato', sans-serif; font-size: 1em; transition: all 0.3s ease; box-sizing: border-box; color: var(--texto-gris); font-weight: normal;
+    }
+    #checkout-form input:focus, #checkout-form textarea:focus, #checkout-form select:focus {
+      outline: none; border-color: var(--rojo-navidad); box-shadow: 0 0 15px rgba(230, 0, 38, 0.2);
+    }
+    
+    #checkout-form button[type="submit"] {
+      background: linear-gradient(to right, var(--rojo-navidad), #C41E3A); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 1.1em; letter-spacing: 1px; cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    #checkout-form button[type="submit"]:hover {
+      transform: translateY(-2px); box-shadow: 0 15px 30px rgba(230, 0, 38, 0.3); background: linear-gradient(to right, #C41E3A, var(--rojo-navidad));
+    }
+    
+    #checkout-form button.btn-cancelar {
+      background-color: transparent; color: var(--verde-bosque); border: 2px solid var(--verde-bosque); width: 100%; margin-top: 15px; cursor: pointer; padding: 12px; border-radius: 50px; font-weight: 700; transition: all 0.3s; font-size: 1em;
+    }
+    #checkout-form button.btn-cancelar:hover { background-color: var(--verde-bosque); color: white; }
+    
+    .close-modal {
+      position: absolute; top: 20px; right: 25px; font-size: 2em; 
+      color: var(--dorado-brillante); 
+      cursor: pointer; transition: color 0.3s; background: none; border: none; width: auto; height: auto; display: block;
+    }
+    .close-modal:hover { color: var(--rojo-navidad); }
+
+    .footer {
+      background-color: var(--blanco-nieve); color: var(--verde-bosque); text-align: center; padding: 50px 20px; margin-top: 80px; border-top: 5px solid var(--rojo-navidad); font-family: 'Lato', sans-serif; font-size: 0.95em;
+    }
+    .social-icons a { color: var(--rojo-navidad); margin: 0 18px; font-size: 1.8em; transition: all 0.3s ease; background: none; width: auto; height: auto; border: none; display: inline-block; border-radius: 0; }
+    .social-icons a:hover { 
+      color: var(--dorado-brillante); 
+      transform: translateY(-3px) rotate(10deg); background: none; border: none;
     }
 
-    @keyframes floatSanta {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    /* Sección de marketing */
-    .marketing-section {
-      background-color: var(--beige);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .marketing-section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--rojo);
-    }
-
-    .marketing-section p {
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      color: var(--verde);
-    }
-
-    .instagram-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      justify-items: center;
-    }
-
-    .insta-post {
-      width: 100%;
-      max-width: 300px;
-      overflow: hidden;
-    }
-
-    .insta-post iframe {
-      width: 100%;
-      height: auto;
-      border: none;
-    }
-
-    /* Sección de videos */
-    .video-section {
-      background-color: var(--beige);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .video-section h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: var(--rojo);
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      justify-items: center;
-    }
-
-    .video-container {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%; /* 16:9 ratio */
-      height: 0;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* Sección de promociones */
-    .promos-section {
-      background-color: var(--beige);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .promos-section h2 {
-      font-size: 2rem;
-      color: var(--rojo);
-      margin-bottom: 1rem;
-    }
-
-    .promos-section p {
-      font-size: 1rem;
-      color: var(--verde);
-      margin-bottom: 2rem;
-    }
-
-    .promo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      justify-items: center;
-    }
-
-    .promo-card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      max-width: 280px;
-    }
-
-    .promo-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-
-    .promo-card img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
-
-    .promo-card h3 {
-      font-size: 1.2rem;
-      color: var(--rojo);
-      margin: 1rem 0 0.5rem;
-    }
-
-    .promo-card p {
-      font-size: 0.95rem;
-      color: var(--verde);
-      padding: 0 1rem 1rem;
-    }
-
-    .promo-card {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s ease forwards;
-    }
-
-    .promo-card:nth-child(1) { animation-delay: 0.2s; }
-    .promo-card:nth-child(2) { animation-delay: 0.4s; }
-    .promo-card:nth-child(3) { animation-delay: 0.6s; }
-    .promo-card:nth-child(4) { animation-delay: 0.8s; }
-    .promo-card:nth-child(5) { animation-delay: 1s; }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .promo-btn {
-      display: inline-block;
-      background-color: var(--rojo);
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      margin-bottom: 1rem;
-    }
-
-    .promo-btn:hover {
-      background-color: #831717;
-      transform: scale(1.05);
-    }
-
-    /* Copos de nieve animados */
-    .snowflakes {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    .snowflake {
-      color: white;
-      font-size: 1.5em;
-      font-family: Arial, sans-serif;
-      position: absolute;
-      top: -10%;
-      animation: fall 10s linear infinite;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; }
-    }
-
-    /* Diferentes velocidades y posiciones */
-    .snowflake:nth-child(1) { left: 10%; animation-duration: 10s; }
-    .snowflake:nth-child(2) { left: 25%; animation-duration: 12s; }
-    .snowflake:nth-child(3) { left: 40%; animation-duration: 8s; }
-    .snowflake:nth-child(4) { left: 60%; animation-duration: 11s; }
-    .snowflake:nth-child(5) { left: 75%; animation-duration: 9s; }
-    .snowflake:nth-child(6) { left: 90%; animation-duration: 13s; }
-
-    /* Luces Navideñas Animadas */
-    .christmas-lights {
-      display: flex;
-      justify-content: center;
-      position: relative;
-      background: transparent;
-      padding: 10px 0;
-      z-index: 1000;
-      overflow: hidden;
-    }
-
-    .christmas-lights span {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      margin: 0 10px;
-      background-color: red;
-      box-shadow: 0 0 8px red;
-      animation: blink 1.5s infinite alternate;
-    }
-
-    /* Alternar colores */
-    .christmas-lights span:nth-child(2n) {
-      background-color: #00b050;
-      box-shadow: 0 0 8px #00b050;
-    }
-
-    .christmas-lights span:nth-child(3n) {
-      background-color: #ffd700;
-      box-shadow: 0 0 8px #ffd700;
-    }
-
-    /* Parpadeo suave */
-    @keyframes blink {
-      from {
-        opacity: 0.2;
-        transform: scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1.1);
-      }
-    }
-
-    /* Línea decorativa tipo guirnalda */
-    .christmas-lights::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: repeating-linear-gradient(
-        to right,
-        #333 0 20px,
-        transparent 20px 40px
-      );
-      opacity: 0.3;
-    }
-
-    .christmas-lights:hover span {
-      transform: scale(1.2);
-      opacity: 1;
-      box-shadow: 0 0 15px gold;
-      transition: all 0.3s ease;
-    }
-
-    /* Media queries para responsividad */
+    /* --- RESPONSIVE DESIGN MEJORADO PARA MÓVIL --- */
     @media (max-width: 768px) {
-      .block {
-        padding: 1.5rem;
+      .container { padding: 15px; margin: 10px; gap: 20px; box-shadow: none; border: none; background: transparent; outline: none; }
+      
+      .hero-section, .products-section { 
+        background-color: var(--blanco-nieve); 
+        border: 2px solid var(--rojo-navidad); 
+        padding: 30px 10px; /* Reducción de padding */
+      }
+      .main-content { gap: 30px; }
+
+      /* Ajuste estricto de la grilla para 2 columnas en móvil */
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; /* Gap más pequeño para que quepan */
+      }
+
+      /* Tarjeta de producto compacta */
+      .product-card { 
+        width: 100%; 
+        padding: 15px 10px; /* Padding interno reducido */
+        margin-bottom: 0; 
+        border: 1px solid var(--dorado-brillante); 
       }
       
-      .desktop-nav {
-        display: none;
+      /* Ajuste de tamaños de fuente para que no se rompa el diseño */
+      .product-card h4 { font-size: 1.1em; margin-top: 10px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+      .product-card p { font-size: 0.85em; line-height: 1.3; display: none; /* Opcional: Ocultar descripción larga en móvil si quieres más espacio */ }
+      /* Si prefieres mostrar la descripción, quita el display: none de arriba */
+      .product-card p:nth-of-type(2) { display: block; } /* Asegura que el precio siempre se vea */
+
+      .price { font-size: 1.2em; margin: 5px 0 15px 0; }
+      .btn-agregar { padding: 10px; font-size: 0.8em; }
+
+      .product-image {
+        max-width: 100%; /* Ocupa el ancho disponible */
+        border-width: 2px;
       }
+
+      .cart-button { padding: 15px; font-size: 1.2em; bottom: 20px; right: 20px; }
+      .logo-hero { width: 120px; height: 120px; }
+      .hero-section h2 { font-size: 2.5em; }
+      .hero-section h3 { font-size: 1.1em; }
       
-      .menu-toggle {
-        display: flex;
-      }
-      
-      .logo {
-        font-size: 1.5rem;
-      }
-      
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .video-grid, .promo-grid, .instagram-grid {
-        grid-template-columns: 1fr;
-      }
+      #checkout-form { width: 95%; padding: 25px; }
     }
 
-    @media (min-width: 769px) {
-      .mobile-nav {
-        display: none;
-      }
-    }
+  .instagram-section {
+  max-width: 1200px;  /* MISMO ANCHO QUE PRODUCTOS */
+  margin: 0 auto;     /* CENTRADO PERFECTO */
+  padding: 20px;      /* MISMO ESPACIO */
+}
+
+
+.instagram-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.instagram-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Vista móvil */
+@media (max-width: 768px) {
+  .instagram-grid {
+    grid-template-columns: 1fr;   /* 1 por fila */
+    justify-items: center;        /* CENTRA LAS PUBLICACIONES */
+  }
+}
+
+
+
   </style>
 </head>
 <body>
+  <div class="snow"></div>
+  
+  <div class="container">
+    <section class="hero-section">
+      <img src="logo.jpg" alt="Logo Chocomente" class="logo-hero">
+      <h2>Chocolate Caliente</h2>
+      <h3>Edición Navideña de Lujo 2025 ❄</h3>
+    </section>
 
-  <header>
-    <div class="logo">ChocoMente 🎄</div>
-    
-    <!-- Navegación para escritorio -->
-    <nav class="desktop-nav">
-      <a href="index.html">Inicio</a>
-      <a href="prueba2.html">Menú</a>
-      <a href="contacto.html">Contacto</a>
-    </nav>
-    
-    <!-- Botón hamburguesa para móviles -->
-    <div class="menu-toggle" id="menuToggle">
-      <span></span>
-      <span></span>
-      <span></span>
+    <main class="main-content">
+      <section class="products-section">
+        <h2>🎁 Elige tu paquete navideño:</h2>
+       <div class="products-grid">
+
+  <div class="product-card" data-name="Paquete Tradicional" data-price="30">
+    <div class="product-image">
+      <img src="prod1.jpeg" alt="Chocolate Tradicional">
     </div>
-    
-    <!-- Navegación para móviles -->
-    <nav class="mobile-nav" id="mobileNav">
-      <button class="close-menu" id="closeMenu">
-        <i class="fas fa-times"></i>
-      </button>
-      <a href="index.html">Inicio</a>
-      <a href="prueba2.html">Menú</a>
-      <a href="contacto.html">Contacto</a>
-    </nav>
-    
-    <!-- Overlay para cerrar menú móvil -->
-    <div class="overlay" id="overlay"></div>
-  </header>
-
-  <!-- Luces Navideñas -->
-  <div class="christmas-lights">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <h4>Chocolate Tradicional</h4>
+    <p>Chocolate caliente tradicional, a base de cocoa natural premium.</p>
+    <p class="price">$30 MXN</p>
+    <div class="product-buttons"><button class="btn-agregar">Agregar</button></div>
   </div>
 
-  <!-- REJILLA DE CONTENIDO -->
-  <div class="grid">
-
-    <!-- Fila 1 -->
-    <div class="block green-block">
-      <h2>Tu ChocoMente de siempre está listo</h2>
-      <p>¡Consiéntete esta Navidad con tus sabores favoritos!</p>
+  <div class="product-card" data-name="Bomba Clásica" data-price="30">
+    <div class="product-image">
+      <img src="prod2.jpeg" alt="Bomba Clásica">
     </div>
-    <div class="block img-block">
-      <img src="https://media.istockphoto.com/id/1252277049/es/foto/batido-de-chocolate-marr%C3%B3n.jpg?s=612x612&w=0&k=20&c=VSosn2ffwiFsXaSy-nM_Yra6798rg2_RGOJOtXoXZmc=">
-    </div>
-
-    <!-- Fila 2 -->
-    <div class="block img-block">
-      <img src="https://i.ytimg.com/vi/FvuM6BZ5noY/maxresdefault.jpg">
-    </div>
-    <div class="block beige-block">
-      <h2>Sabores que nos reúnen</h2>
-      <p>Descubre nuestro latte con especias y bebidas calientes con ese toque navideño que amas.</p>
-    </div>
-
-    <!-- Fila 3 -->
-    <div class="block green-block">
-      <h2>Un sabor para compartir</h2>
-      <p>Prueba nuestro Apple Crisp, el dulce abrazo perfecto para este invierno.</p>
-    </div>
-    <div class="block img-block">
-      <img src="https://m.media-amazon.com/images/I/81L4e87N2uL._UF350,350_QL80_.jpg">
-    </div>
-
+    <h4>Bomba Clásica</h4>
+    <p>Deliciosa bomba de chocolate rellena de cocoa y malvaviscos.</p>
+    <p class="price">$30 MXN</p>
+    <div class="product-buttons"><button class="btn-agregar">Agregar</button></div>
   </div>
 
-  <!-- SECCIÓN DE VIDEOS -->
-  <section class="video-section">
-    <h2>🎥 Momentos navideños en ChocoMente</h2>
-    <div class="video-grid">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/xn_DYap8mzE" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/VlPiVmYuoqw" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/Gli-LgWvC10" frameborder="0" allowfullscreen></iframe>
-      </div>
+  <div class="product-card" data-name="Bomba Navideña" data-price="30">
+    <div class="product-image">
+      <img src="prod3.jpeg" alt="Bomba Navideña">
     </div>
-  </section>
+    <h4>Bomba Navideña</h4>
+    <p>Decorada con chispas festivas doradas y un toque de menta.</p>
+    <p class="price">$30 MXN</p>
+    <div class="product-buttons"><button class="btn-agregar">Agregar</button></div>
+  </div>
 
-  <!-- SECCIÓN DE PROMOCIONES NAVIDEÑAS -->
-  <section class="promos-section">
-    <h2>🎁 Promociones de Navidad</h2>
-    <p>Aprovecha nuestras ofertas especiales por tiempo limitado.</p>
-
-    <div class="promo-grid">
-      <div class="promo-card">
-        <img src="p1.jpg" alt="Promo 1">
-        <h3>2x1 en Chocolates Calientes</h3>
-        <p>Disfruta el doble del sabor con nuestra promoción navideña el primer día de ventas.</p>
-      </div>
-      <div class="promo-card">
-        <img src="p2.png" alt="Promo 2">
-        <h3>Combo bombas de chocolate + Bebida</h3>
-        <p>Perfecto para compartir en familia esta temporada.</p>
-      </div>
-      <div class="promo-card">
-        <img src="p3.jpg" alt="Promo 3">
-        <h3>Extra menta de bombas </h3>
-        <p>Prueba nuestra bebida edición limitada con menta y chocolate.</p>
-      </div>
-      <div class="promo-card">
-        <img src="4.png" alt="Promo 4">
-        <h3>10% de descuento si ganan en algún juego</h3>
-        <p>Solo durante diciembre. ¡No te lo pierdas!</p>
-      </div>
-      <div class="promo-card">
-        <img src="5.png" alt="Promo 5">
-        <h3>Entrega de tarjeta Chocomente</h3>
-        <p>Haz una compra de 5 o más bebidas y/o vombas y llevate una bebida gratis </p>
-      </div>
+  <div class="product-card" data-name="Bomba de Menta" data-price="30">
+    <div class="product-image">
+      <img src="prod4.jpeg" alt="Bomba de Menta">
     </div>
-  </section>
+    <h4>Bomba de Menta</h4>
+    <p>Chocolate oscuro con un toque refrescante de menta real.</p>
+    <p class="price">$30 MXN</p>
+    <div class="product-buttons"><button class="btn-agregar">Agregar</button></div>
+  </div>
 
-  <!-- SECCIÓN DE MARKETING - INSTAGRAM -->
-  <section class="marketing-section">
-    <h2>📱 Síguenos en Instagram</h2>
-    <p>Mira nuestras últimas publicaciones navideñas en <strong>@ChocoMente</strong></p>
-
-   <div class="instagram-grid">
-  <blockquote class="instagram-media"
-    data-instgrm-permalink="https://www.instagram.com/p/DQHd-wNDq4Z/?igsh=ZjFkYzMzMDQzZg=="
-    data-instgrm-version="14"
-    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
-  </blockquote>
-
-  <blockquote class="instagram-media"
-    data-instgrm-permalink="https://www.instagram.com/p/POSTID2/"
-    data-instgrm-version="14"
-    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
-  </blockquote>
-
-  <blockquote class="instagram-media"
-    data-instgrm-permalink="https://www.instagram.com/p/POSTID3/"
-    data-instgrm-version="14"
-    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
-  </blockquote>
-
-  <blockquote class="instagram-media"
-    data-instgrm-permalink="https://www.instagram.com/p/POSTID4/"
-    data-instgrm-version="14"
-    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
-  </blockquote>
 </div>
 
-<script async src="https://www.instagram.com/embed.js"></script>
-
-  </section>
-
-  <footer>
-    <div style="margin-bottom: 1rem;">
-      <a href="https://facebook.com" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem;">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="https://www.instagram.com/choco_mente?igsh=MXJvcHFvNm04dGZjbA==" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem;">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://twitter.com" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem;">
-        <i class="fab fa-x-twitter"></i>
-      </a>
-      <a href="https://tiktok.com" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem;">
-        <i class="fab fa-tiktok"></i>
-      </a>
-    </div>
-    <p>&copy; 2025 ChocoMente. Hecho con sabor y espíritu navideño. 🎅☕</p>
-  </footer>
-
-  <div class="santa-container">
-    <img src="santa.jpg" alt="Santa Claus">
-    <div class="santa-message">🎅 ¡Felices Fiestas!</div>
+      </section>
+    </main>
   </div>
   
-  <!-- COPOS DE NIEVE -->
-  <div class="snowflakes" aria-hidden="true">
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
+  <button class="cart-button" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+  </button>
+  
+  <div class="cart-panel" id="cart-panel">
+    <h3>Tu Pedido Navideño:</h3>
+    <ul id="cart-items"></ul>
+    <p><strong>Total:</strong> $<span id="cart-total">0.00</span> MXN</p>
+    <button onclick="openCheckoutForm()">Finalizar Compra ✨</button>
   </div>
 
-  <script>
-    // Funcionalidad del menú móvil
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileNav = document.getElementById('mobileNav');
-    const closeMenu = document.getElementById('closeMenu');
-    const overlay = document.getElementById('overlay');
+  <form id="checkout-form" onsubmit="submitOrder(event)">
+    <span class="close-modal" onclick="closeCheckoutForm()">&times;</span>
+    <h2>Finalizar Compra 🎄</h2>
     
-    function toggleMenu() {
-      menuToggle.classList.toggle('active');
-      mobileNav.classList.toggle('active');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-    }
-    
-    menuToggle.addEventListener('click', toggleMenu);
-    closeMenu.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
-    
-    // Cerrar menú al hacer clic en un enlace
-    const mobileLinks = mobileNav.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', toggleMenu);
-    });
-    
-    // Efecto sonoro de luces navideñas
-    const bellSound = new Audio("campanitas.mp3");
-    bellSound.volume = 0.4;
+    <div class="input-group">
+      <label for="nombre"><i class="fas fa-user"></i> Nombre Completo:</label>
+      <input type="text" id="nombre" placeholder="Ej: María Pérez" required />
+    </div>
 
-    const lights = document.querySelector(".christmas-lights");
-    if (lights) {
-      lights.addEventListener("mouseenter", () => {
-        bellSound.currentTime = 0;
-        bellSound.play().catch(() => {});
+    <div class="input-group">
+      <label for="metodo-pago"><i class="fas fa-wallet"></i> Método de pago:</label>
+      <select id="metodo-pago" required>
+        <option value="Efectivo">Efectivo contra entrega</option>
+        <option value="Transferencia">Transferencia Bancaria</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="direccion"><i class="fas fa-map-marker-alt"></i> Salón / Ubicación Exacta:</label>
+      <textarea id="direccion" rows="3" placeholder="Ej: Edificio A, Salón 101, junto a la entrada" required></textarea>
+    </div>
+
+    <button type="submit"><i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp</button>
+    <button type="button" class="btn-cancelar" onclick="closeCheckoutForm()">Seguir Comprando</button>
+  </form>
+
+  <!-- SECCIÓN DE INSTAGRAM -->
+<section class="instagram-section">
+  <center>
+  <h2>📱 Síguenos en Instagram</h2>
+  <p>Mira nuestras últimas publicaciones en <strong>@ChocoMente</strong></p>
+
+  </center>
+
+  <div class="instagram-grid">
+    
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/DRSw5DjkTXR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
+    </blockquote>
+
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/DRSxV5rkXMi/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
+    </blockquote>
+
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/DRTFEJSEcTR/?utm_source=ig_web_copy_link"
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
+    </blockquote>
+
+    <blockquote class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/p/DRTHB8wkbUP/?utm_source=ig_web_copy_link"
+      data-instgrm-version="14"
+      style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;">
+    </blockquote>
+
+  </div>
+
+  <script async src="https://www.instagram.com/embed.js"></script>
+</section>
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2025 ChocoMente. Edición Navideña de Lujo.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function goBack() { window.history.back(); }
+    let cart = [];
+    function addToCart(name, price) { cart.push({ name, price }); updateCartDisplay(); }
+    function updateCartDisplay() {
+      const cartCount = document.getElementById('cart-count'); const cartItems = document.getElementById('cart-items'); const cartTotal = document.getElementById('cart-total');
+      cartCount.textContent = cart.length; cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item) => {
+        total += item.price; const li = document.createElement('li'); 
+        li.textContent = `${item.name} - $${item.price.toFixed(2)} MXN`; 
+        li.style.borderBottom = '1px solid var(--dorado-brillante)'; li.style.padding = '5px 0';
+        cartItems.appendChild(li);
       });
+      cartTotal.textContent = total.toFixed(2);
+    }
+    function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
+    function clearCart() { cart = []; updateCartDisplay(); }
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.btn-agregar');
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const card = e.target.closest('.product-card'); const name = card.dataset.name; const price = parseFloat(card.dataset.price); addToCart(name, price);
+        });
+      });
+    });
+    function openCheckoutForm() { document.getElementById('checkout-form').style.display = 'block'; document.getElementById('cart-panel').classList.remove('open'); }
+    function closeCheckoutForm() { document.getElementById('checkout-form').style.display = 'none'; }
+    function submitOrder(event) {
+      event.preventDefault();
+      
+      const nombre = document.getElementById('nombre').value; 
+      const metodoPago = document.getElementById('metodo-pago').value; 
+      const direccion = document.getElementById('direccion').value;
+
+      if (cart.length === 0) { alert('Tu carrito está vacío.'); return; }
+      if (!nombre || !metodoPago || !direccion) { alert('Por favor llena todos los campos del formulario.'); return; }
+      
+      let mensaje = `🎄✨ *Nuevo Pedido Navideño ChocoFest* ✨🎄\n\n`; 
+      mensaje += `👤 *Cliente:* ${nombre}\n💳 *Método:* ${metodoPago}\n📍 *Ubicación:* ${direccion}\n\n🛒 *Pedido Detallado:*\n`;
+      
+      let total = 0; cart.forEach(item => { mensaje += `- ${item.name} | $${item.price.toFixed(2)}\n`; total += item.price; });
+      mensaje += `\n💰 *TOTAL A PAGAR:* $${total.toFixed(2)} MXN\n\n❄ ¡Gracias por tu preferencia! ❄`;
+      const mensajeWhatsApp = encodeURIComponent(mensaje);
+      window.open(`https://wa.me/5217291137275?text=${mensajeWhatsApp}`, '_blank');
+      clearCart(); closeCheckoutForm();
     }
   </script>
 </body>
