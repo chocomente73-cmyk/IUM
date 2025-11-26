@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChocoMente | Navidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --verde: #1e3932;
+      --rojo: #a41e1e;
+      --beige: #f4f1eb;
+      --blanco: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: var(--blanco);
+      color: var(--verde);
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: var(--rojo);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      color: white;
+      font-weight: bold;
+    }
+
+
+    .desktop-nav a {
+      color: white;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .desktop-nav a:hover {
+      color: var(--beige);
+    }
+
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+    /* Contenido principal */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0;
+      width: 100%;
+    }
+
+    .block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      min-height: 300px;
+      text-align: center;
+    }
+
+    .green-block {
+      background-color: var(--verde);
+      color: white;
+      flex-direction: column;
+    }
+
+    .beige-block {
+      background-color: var(--beige);
+      flex-direction: column;
+    }
+
+    .green-block h2,
+    .beige-block h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .green-block p,
+    .beige-block p {
+      font-size: 1rem;
+      max-width: 500px;
+    }
+
+    .img-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    footer {
+      background-color: var(--verde);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+
+    /* Sección de marketing */
+    .marketing-section {
+      background-color: var(--beige);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .marketing-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--rojo);
+    }
+
+    .marketing-section p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: var(--verde);
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
+    }
+
+    .insta-post {
+      width: 100%;
+      max-width: 300px;
+      overflow: hidden;
+    }
+
+    .insta-post iframe {
+      width: 100%;
+      height: auto;
+      border: none;
+    }
+
+   
+
+    /* Copos de nieve animados */
+    .snowflakes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      color: white;
+      font-size: 1.5em;
+      font-family: Arial, sans-serif;
+      position: absolute;
+      top: -10%;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; }
+    }
+
+    /* Diferentes velocidades y posiciones */
+    .snowflake:nth-child(1) { left: 10%; animation-duration: 10s; }
+    .snowflake:nth-child(2) { left: 25%; animation-duration: 12s; }
+    .snowflake:nth-child(3) { left: 40%; animation-duration: 8s; }
+    .snowflake:nth-child(4) { left: 60%; animation-duration: 11s; }
+    .snowflake:nth-child(5) { left: 75%; animation-duration: 9s; }
+    .snowflake:nth-child(6) { left: 90%; animation-duration: 13s; }
+
+    /* Luces Navideñas Animadas */
+    .christmas-lights {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      background: transparent;
+      padding: 10px 0;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .christmas-lights span {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin: 0 10px;
+      background-color: red;
+      box-shadow: 0 0 8px red;
+      animation: blink 1.5s infinite alternate;
+    }
+
+    /* Alternar colores */
+    .christmas-lights span:nth-child(2n) {
+      background-color: #00b050;
+      box-shadow: 0 0 8px #00b050;
+    }
+
+    .christmas-lights span:nth-child(3n) {
+      background-color: #ffd700;
+      box-shadow: 0 0 8px #ffd700;
+    }
+
+    /* Parpadeo suave */
+    @keyframes blink {
+      from {
+        opacity: 0.2;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Línea decorativa tipo guirnalda */
+    .christmas-lights::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: repeating-linear-gradient(
+        to right,
+        #333 0 20px,
+        transparent 20px 40px
+      );
+      opacity: 0.3;
+    }
+
+    .christmas-lights:hover span {
+      transform: scale(1.2);
+      opacity: 1;
+      box-shadow: 0 0 15px gold;
+      transition: all 0.3s ease;
+    }
+
+    /* Media queries para responsividad */
+    @media (max-width: 768px) {
+      .block {
+        padding: 1.5rem;
+      }
+      
+      .desktop-nav {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .video-grid, .promo-grid, .instagram-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Luces Navideñas -->
+  <div class="christmas-lights">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- REJILLA DE CONTENIDO -->
+  <div class="grid">
+
+    <!-- Fila 1 -->
+    <div class="block green-block">
+      <h2>Tu ChocoMente de siempre está listo</h2>
+      <p>¡Consiéntete esta Navidad con tus sabores favoritos!</p>
+    </div>
+    <div class="block img-block">
+      <img src="ch1.png">
+    </div>
+
+    <!-- Fila 2 -->
+    <div class="block img-block">
+      <img src="ch2.png">
+    </div>
+
+    <div class="block img-block">
+      <img src="ch3.png">
+    </div>
+
+
+    <!-- Fila 3 -->
+    <div class="block green-block">
+      <h2>Un sabor para compartir</h2>
+      <p>Prueba nuestro chocomente.</p>
+    </div>
+
+  </div>
+
+      
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE MARKETING - INSTAGRAM -->
+  <section class="marketing-section">
+    <h2>📱 Síguenos en Instagram</h2>
+    <p>Mira nuestras últimas publicaciones navideñas en <strong>@ChocoMente</strong></p>
+
+   <div class="instagram-grid">
+  <blockquote class="instagram-media"
+    data-instgrm-permalink="https://www.instagram.com/p/DRSw5DjkTXR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+    data-instgrm-version="14"
+    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
+  </blockquote>
+
+  <blockquote class="instagram-media"
+    data-instgrm-permalink="https://www.instagram.com/p/DRSxV5rkXMi/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+    data-instgrm-version="14"
+    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
+  </blockquote>
+
+  <blockquote class="instagram-media"
+    data-instgrm-permalink="https://www.instagram.com/p/DRTFEJSEcTR/?utm_source=ig_web_copy_link"
+    data-instgrm-version="14"
+    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
+  </blockquote>
+
+  <blockquote class="instagram-media"
+    data-instgrm-permalink="https://www.instagram.com/p/DRTHB8wkbUP/?utm_source=ig_web_copy_link"
+    data-instgrm-version="14"
+    style="background:#fff; border:0; margin:1px; max-width:540px; width:100%">
+  </blockquote>
+</div>
+
+<script async src="https://www.instagram.com/embed.js"></script>
+
+  </section>
+
+  <footer>
+    <div style="margin-bottom: 1rem;">
+      <a href="https://www.instagram.com/chocomente73/=" target="_blank" style="color: white; margin: 0 10px; font-size: 1.5rem;">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+    </div>
+    <p>&copy; 2025 ChocoMente. Hecho con sabor y espíritu navideño. 🎅☕</p>
+  </footer>
+
+
+  
+  <!-- COPOS DE NIEVE -->
+  <div class="snowflakes" aria-hidden="true">
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+  </div>
+
+  <script>
+  // Funcionalidad del menú móvil
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const closeMenu = document.getElementById('closeMenu');
+  const overlay = document.getElementById('overlay');
+  
+  function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+  }
+  
+  menuToggle.addEventListener('click', toggleMenu);
+  closeMenu.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // Cerrar menú al hacer clic en un enlace
+  const mobileLinks = mobileNav.querySelectorAll('a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+
+  // Efecto sonoro luces navideñas
+  const bellSound = new Audio("campanitas.mp3");
+  bellSound.volume = 0.4;
+
+  const lights = document.querySelector(".christmas-lights");
+  if (lights) {
+    lights.addEventListener("mouseenter", () => {
+      bellSound.currentTime = 0;
+      bellSound.play().catch(() => {});
+    });
+  }
+
+  // Santa Asistente (solo UNA variable santa)
+  const santa = document.getElementById("santaHelper");
+
+  if (santa) {
+    santa.addEventListener("click", () => {
+      toggleMenu();
+    });
+  }
+</script>
+
+
+
+</body>
+</html>
